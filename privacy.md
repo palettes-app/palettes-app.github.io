@@ -23,7 +23,7 @@ Everything you copy and everything you create in Palettes — clipboard history,
 
 Palettes works offline. It connects to the internet only in these cases, and only because you asked it to:
 
-- **Website icons (off by default).** If you turn on "Download the site's icon" for a bookmark that opens a website, Palettes downloads that site's icon from the site itself. Like any visit to a website, the site can see your IP address. No clipboard content is ever sent.
+- **Website icons (off by default).** If you turn on "Download site icons (all bookmarks)" in the editor of a bookmark that opens a website, Palettes downloads the icon of each such website from the website itself. Like any visit to a website, the site can see your IP address. No clipboard content is ever sent.
 - **Links and actions you click.** Opening a link, an email address, a map, a phone number or a package tracking page hands it to your browser or to the right app. From that moment, that service's own privacy policy applies.
 
 ## Other apps on your Mac
