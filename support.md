@@ -26,7 +26,7 @@ Turn on **Open Palettes when you log in** in Settings › General. If macOS asks
 ## Privacy
 
 ### Are my passwords saved?
-You decide. In Settings › Privacy you can keep, auto-delete or never save items that password managers mark as private, and choose apps whose copies are never saved.
+By default, yes: they're saved and shown like other items. In Settings › Privacy › Passwords you can hide them, delete them after a while, or never save them, and choose apps whose copies are never saved.
 
 ### Does Palettes send my data anywhere?
 No. Everything stays on your Mac. See our [Privacy Policy](privacy).
