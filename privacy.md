@@ -17,7 +17,7 @@ Everything you copy and everything you create in Palettes — clipboard history,
 - **Backups** are off by default. If you turn them on, they are saved on your Mac only.
 - **Export** creates a file in a place you choose. You can protect it with a password; without one, the file is not encrypted, so keep it somewhere safe.
 - **Web page sources** are off by default. If you turn on "Remember the web page each copy came from", the page address is saved with the item, on your Mac.
-- **Passwords and sensitive items:** you decide in Settings › Privacy whether items that password managers mark as private are saved, deleted after a while, or never saved, and which apps Palettes should ignore.
+- **Passwords and sensitive items:** items that password managers mark as private are saved and shown like other items by default. In Settings › Privacy you decide whether they are shown, hidden, deleted after a while, or never saved, and which apps Palettes should ignore.
 
 ## When Palettes connects to the internet
 
