@@ -1,0 +1,26 @@
+/* עמודי הטקסט (Support, Privacy, Terms): אותם צבעים וגופנים כמו עמוד הבית */
+:root{--paper:#fbfaf2;--ink:#1d1c1a;--sub:#4e4a43;--muted:#5e5a52;--line:#e2ddcf;--accent:#007aff;--font-display:"Bricolage Grotesque",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;--font-sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.55}
+a{color:var(--ink)}a:hover{color:#000}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.top{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:20px max(16px,env(safe-area-inset-left,0px)) 20px max(16px,env(safe-area-inset-right,0px));flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;margin-right:auto;font-weight:800;font-size:22px;text-decoration:none}
+.logo img{width:32px;height:32px}
+.top nav{display:flex;align-items:center;gap:20px;flex-wrap:wrap;font-size:15px}
+.top nav a{text-decoration:none}
+.btn{background:var(--ink);color:var(--paper)!important;border-radius:999px;padding:8px 16px;font-weight:700}
+.btn:hover{background:#000}
+.doc{max-width:720px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-left,0px)) 64px max(16px,env(safe-area-inset-right,0px))}
+.doc h1{font-family:var(--font-display);font-weight:800;font-size:44px;line-height:1.05;letter-spacing:-.02em;margin:16px 0 20px;text-wrap:balance}
+.doc h2{font-family:var(--font-display);font-weight:800;font-size:26px;line-height:1.15;margin:40px 0 12px;padding-top:24px;border-top:1px solid var(--line)}
+.doc h3{font-size:18px;margin:26px 0 6px}
+.doc p,.doc li{color:var(--sub)}
+.doc p{margin:0 0 12px}
+.doc ul,.doc ol{margin:0 0 12px;padding-left:22px}
+.doc li{margin:6px 0}
+.doc strong{color:var(--ink)}
+.foot{max-width:1100px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-left,0px)) 40px max(16px,env(safe-area-inset-right,0px));border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:12px 24px;font-size:14px;color:var(--muted)}
+.foot a{color:var(--muted);text-decoration:none}.foot a:hover{color:var(--ink)}
+.foot .copy2{margin-left:auto}
+@media (max-width:760px){.doc h1{font-size:34px}.foot .copy2{margin-left:0}}

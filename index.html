@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palettes – Your Efficient Clipboard for Mac</title>
+<meta name="description" content="Palettes is a clipboard manager for Mac. Find what you copied, take just the line you need, and keep what you reuse in bookmark tabs. Free download, Pro optional.">
+<meta property="og:title" content="Palettes – Copy more. Paste smarter.">
+<meta property="og:description" content="A clipboard manager for Mac. Find what you copied, take just the line you need. Free download, Pro optional.">
+<meta property="og:image" content="https://getpalettes.app/assets/panel-curves.png">
+<meta property="og:url" content="https://getpalettes.app/">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<style>
+/* site-v2 (23.10.2026): העיצוב של הגרסה החיצונית (incoming/getpalettes-improved), עם התוכן, האנימציה והתמונות שלנו */
+:root{--paper:#fbfaf2;--ink:#25241f;--muted:#5a584f;--line:#dfdfd2;--yellow:#f6d953;--mint:#e0ece2;--peach:#f6dfcc;--lilac:#e6dff2;--accent:#007aff;--focus:#005fcc;--radius:24px;--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-underline-offset:4px}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:4px;border-radius:6px}
+h1,h2,h3,p,figure{margin:0}
+h1,h2,h3{line-height:1.07;letter-spacing:-.045em;text-wrap:balance}
+h1,h2{font-weight:760}
+::selection{background:var(--yellow);color:var(--ink)}
+.wrap{width:min(1160px,calc(100% - 80px));margin-inline:auto}
+.eyebrow{display:block;font-size:12px;font-weight:700;line-height:1.5;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:54px;padding:14px 26px;border-radius:100px;background:var(--ink);color:var(--paper);font-size:16px;font-weight:650;line-height:1.3;text-decoration:none;transition:background .16s ease,transform .16s ease}
+.button:hover{background:#080807;transform:translateY(-2px)}
+.button span{font-size:19px;font-weight:400;line-height:1}
+.text-link{display:inline-flex;gap:10px;align-items:center;font-weight:650;font-size:15px;text-decoration:none}
+.text-link:hover{text-decoration:underline}
+.note{font-size:12px;color:var(--muted)}
+.note i{font-style:normal;padding-inline:6px}
+
+/* התפריט העליון: זכוכית חצי שקופה שנשארת למעלה בגלילה */
+.site-header{position:sticky;top:0;z-index:20;background:rgba(251,250,242,.66);-webkit-backdrop-filter:saturate(170%) blur(18px);backdrop-filter:saturate(170%) blur(18px);border-bottom:1px solid rgba(223,223,210,.75)}
+.header-inner{display:flex;align-items:center;gap:32px;min-height:80px}
+.brand{display:inline-flex;align-items:center;gap:11px;font-size:24px;font-weight:760;letter-spacing:-.035em;line-height:1.1;text-decoration:none;flex-shrink:0}
+.brand img{flex:none}
+.brand small{display:block;margin-top:4px;font-size:12px;letter-spacing:.01em;font-weight:550;color:var(--muted)}
+.main-nav{display:flex;gap:28px;margin-left:auto;font-size:14px;font-weight:600}
+.main-nav a{text-decoration:none;padding-block:12px}
+.main-nav a:hover{text-decoration:underline}
+.header-inner .button{min-height:44px;padding:10px 20px;font-size:14px}
+
+/* המסך הראשון: הטקסט משמאל, האנימציה שלנו מימין */
+.hero{display:grid;grid-template-columns:.95fr 1.15fr;gap:24px;align-items:center;padding-top:56px;padding-bottom:64px}
+.hero .eyebrow{display:flex;align-items:center;gap:9px;margin-bottom:22px}
+.dot{width:8px;height:8px;border-radius:50%;background:#b99ddb;box-shadow:0 0 0 4px #eee7f3}
+h1{font-size:clamp(46px,5.3vw,76px);line-height:1.04;letter-spacing:-.065em}
+.mark{position:relative;display:inline-block;isolation:isolate}
+.mark:after{content:"";position:absolute;left:0;right:-5px;bottom:.02em;height:.22em;z-index:-1;background:var(--yellow);transform:rotate(-1.5deg);border-radius:3px}
+.lede{font-size:20px;line-height:1.6;color:var(--muted);max-width:450px;margin-top:26px;letter-spacing:-.012em}
+.actions{display:flex;align-items:center;flex-wrap:wrap;gap:16px 24px;margin-top:30px}
+.hero .note{margin-top:14px}
+.hero-privacy{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;text-decoration:none;color:var(--muted);margin-top:26px}
+.hero-privacy:hover{text-decoration:underline}
+.hero-privacy svg{width:18px;height:20px;flex:none}
+
+/* האנימציה: אותה סצנה של האתר הקודם (1440 יחידות רוחב), חתוכה לאזור של המחשב והלוח */
+.anim{position:relative;aspect-ratio:60/51}
+.stage{position:absolute;left:-56.67%;top:0;margin-top:-3.33%;width:166.67%;aspect-ratio:1440/800;container-type:inline-size;pointer-events:none}
+.halo{position:absolute;left:35cqw;top:4cqw;width:58cqw;height:47cqw;border-radius:4.5cqw;background:radial-gradient(55% 60% at 12% 18%,rgba(246,205,168,.62),transparent 72%),radial-gradient(55% 65% at 92% 22%,rgba(206,190,240,.6),transparent 72%),radial-gradient(70% 70% at 55% 105%,rgba(178,222,200,.55),transparent 72%),linear-gradient(135deg,#f7efe4,#efeaf6 55%,#e9f2ec)}
+.lt{position:absolute;left:38.5cqw;top:17cqw;width:41cqw;z-index:1}
+.lid{position:relative;aspect-ratio:16/10.3;border-radius:1.4cqw 1.4cqw .25cqw .25cqw;background:linear-gradient(160deg,#e4e5e8,#b4b6bb 60%,#9fa1a6);box-shadow:0 0 0 .04cqw rgba(0,0,0,.35),0 0 5cqw rgba(140,170,230,.22)}
+.bezel{position:absolute;inset:.2cqw;border-radius:1.22cqw 1.22cqw .15cqw .15cqw;background:#08080a;padding:1.05cqw 1.05cqw 1.5cqw}
+.cam{position:absolute;top:.42cqw;left:50%;width:.36cqw;height:.36cqw;margin-left:-.18cqw;border-radius:50%;background:radial-gradient(circle at 35% 35%,#3a4766,#050507 70%)}
+.scr{position:relative;width:100%;height:100%;border-radius:.2cqw;overflow:hidden;background:radial-gradient(60% 70% at 15% 20%,#f6c9a8,transparent 70%),radial-gradient(70% 80% at 90% 85%,#8fb1e6,transparent 70%),linear-gradient(135deg,#d9c3ee,#b9cdf0)}
+.menubar{height:1.05cqw;background:rgba(255,255,255,.42);display:flex;gap:1cqw;align-items:center;padding:0 .8cqw;font-size:.6cqw;color:#222}
+.win{position:absolute;left:4%;top:13%;width:44%;height:76%;background:#fff;border-radius:.55cqw;box-shadow:0 1.2cqw 2.4cqw -.8cqw rgba(0,0,0,.35),0 0 0 .04cqw rgba(0,0,0,.12);overflow:hidden;font-size:.82cqw;color:#2a2a2a;line-height:1.4}
+.tb{height:1.6cqw;background:#f3f2f0;border-bottom:.04cqw solid #e2e0dc;display:flex;align-items:center;gap:.32cqw;padding:0 .6cqw}
+.tb i{width:.6cqw;height:.6cqw;border-radius:50%;background:#ff5f57}.tb i+i{background:#febc2e}.tb i+i+i{background:#28c840}
+.mbody{padding:.9cqw 1.1cqw}
+.to{color:#777;font-size:.72cqw;border-bottom:.04cqw solid #eee;padding-bottom:.45cqw;margin-bottom:.6cqw}
+.greet{display:block;margin:.35cqw 0}.greet2{display:block;margin:.35cqw 0 .8cqw}
+.paste{display:block;margin-top:.5cqw;font-weight:600;color:#111;white-space:nowrap}
+.txt{opacity:0;animation:pasted 8s steps(1,end) infinite}
+.caret{display:inline-block;width:.12cqw;height:1em;vertical-align:-.15em;background:var(--accent);margin-left:.1cqw;opacity:0;animation:caret 8s steps(1,end) infinite}
+.glare{position:absolute;inset:0;background:linear-gradient(118deg,rgba(255,255,255,.13) 0 34%,rgba(255,255,255,0) 34.3%),linear-gradient(transparent 60%,rgba(0,0,0,.08));pointer-events:none}
+.deck{position:relative;margin:0 -5.5%;height:1.3cqw;border-radius:.15cqw .15cqw 1.8cqw 1.8cqw / .15cqw .15cqw 1.1cqw 1.1cqw;background:linear-gradient(#f1f2f4 0,#d3d5d9 30%,#b7b9be 70%,#8e9095);box-shadow:0 .1cqw .15cqw rgba(0,0,0,.25)}
+.deck:before{content:"";position:absolute;left:43%;width:14%;top:0;height:.42cqw;border-radius:0 0 .6cqw .6cqw;background:linear-gradient(#9a9ca1,#c8cace)}
+.lt:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-1.6cqw;height:2.6cqw;background:radial-gradient(closest-side,rgba(50,40,25,.3),transparent);z-index:-1}
+.panel{position:absolute;left:54cqw;top:8cqw;width:35cqw;z-index:3;filter:drop-shadow(0 3.2cqw 3.4cqw rgba(40,30,10,.3)) drop-shadow(0 .5cqw .9cqw rgba(0,0,0,.16))}
+.panel img{display:block;width:100%}
+.panel .copied{position:absolute;inset:0;opacity:0;animation:copied 8s ease-out infinite}
+.ripple1{position:absolute;left:40.5%;top:51%;width:3cqw;height:3cqw;margin:-1.5cqw 0 0 -1.5cqw;border-radius:50%;border:.25cqw solid var(--accent);opacity:0;animation:ripple1 8s ease-out infinite}
+.cur{position:absolute;z-index:7;width:1.8cqw;height:1.8cqw;left:80.5cqw;top:47cqw;filter:drop-shadow(0 .1cqw .2cqw rgba(0,0,0,.35));animation:cur 8s ease-in-out infinite}
+.ripple2{position:absolute;z-index:6;left:42.7cqw;top:31.3cqw;width:3cqw;height:3cqw;margin:-1.5cqw 0 0 -1.5cqw;border-radius:50%;border:.25cqw solid var(--accent);opacity:0;animation:ripple2 8s ease-out infinite}
+.keys{position:absolute;z-index:7;left:47.5cqw;top:34.2cqw;background:var(--ink);color:#fff;font-weight:700;font-size:1.15cqw;border-radius:.5cqw;padding:.35cqw .7cqw;box-shadow:0 .4cqw 1cqw rgba(0,0,0,.3);opacity:0;animation:keys 8s ease-out infinite}
+@keyframes cur{0%,8%{left:80.5cqw;top:47cqw;transform:none}24%{left:68cqw;top:26.6cqw;transform:none}26%{left:68cqw;top:26.6cqw;transform:scale(.82)}28%{left:68cqw;top:26.6cqw;transform:none}31%,40%{left:69.5cqw;top:29.8cqw;transform:none}56%{left:42.7cqw;top:31.3cqw;transform:none}58%{left:42.7cqw;top:31.3cqw;transform:scale(.82)}60%{left:42.7cqw;top:31.3cqw;transform:none}63%,92%{left:43.5cqw;top:34.6cqw;transform:none}100%{left:80.5cqw;top:47cqw}}
+@keyframes copied{0%,25.5%{opacity:0}27%,92%{opacity:1}98%,100%{opacity:0}}
+@keyframes ripple1{0%,25%{opacity:0;transform:scale(.4)}27%{opacity:1;transform:scale(.6)}37%,100%{opacity:0;transform:scale(1.8)}}
+@keyframes ripple2{0%,57%{opacity:0;transform:scale(.4)}59%{opacity:1;transform:scale(.6)}68%,100%{opacity:0;transform:scale(1.8)}}
+@keyframes keys{0%,62%{opacity:0;transform:translateY(.4cqw)}64%,80%{opacity:1;transform:none}86%,100%{opacity:0}}
+@keyframes pasted{0%,65%{opacity:0}66%,94%{opacity:1}95%,100%{opacity:0}}
+@keyframes caret{0%,58%{opacity:0}59%,94%{opacity:1}95%,100%{opacity:0}}
+
+/* השורה שהועתקה נצבעת בצהוב, יחד עם "✓ Copied": מבינים מיד שנבחרה רק שורה (המשתמש, 23.10.2026: אפשרות ג) */
+.hl{position:absolute;left:24%;top:48.6%;width:27.6%;height:4.6%;border-radius:.4cqw;background:rgba(246,217,83,.62);mix-blend-mode:multiply;opacity:0;transform-origin:left center;animation:hl 8s ease-out infinite}
+@keyframes hl{0%,25.5%{opacity:0;transform:scaleX(.2)}28%{opacity:1;transform:scaleX(1)}92%{opacity:1;transform:scaleX(1)}98%,100%{opacity:0}}
+/* הבסיס: לשוניות, מקטעים, כותרות ומשימות */
+.everyday{display:grid;grid-template-columns:1.25fr 1fr;gap:28px 48px;align-items:center;padding:40px 44px;border:1px solid var(--line);border-radius:var(--radius);background:#f4f3e9;overflow:hidden}
+.everyday h2{font-size:clamp(30px,3vw,40px);margin-top:12px}
+.everyday>div>p{margin-top:16px;color:var(--muted);font-size:16px;max-width:520px}
+.basics{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;padding:0;margin:30px 0 0}
+.basics li{display:flex;gap:13px;align-items:flex-start}
+.basics strong{display:block;font-size:15px;font-weight:650}
+.basics li span span{display:block;font-size:13px;color:var(--muted);line-height:1.55;margin-top:2px}
+.ic{display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:10px}
+.ic svg{width:19px;height:19px}
+.peach{background:var(--peach)}.lilac{background:var(--lilac)}.mint{background:var(--mint)}.sun{background:#f8eebd}
+.basics-shot{position:relative;align-self:stretch;min-height:440px}
+.basics-shot img{position:absolute;left:50%;top:0;width:min(100%,340px);transform:translateX(-50%);filter:drop-shadow(0 18px 22px rgba(55,42,25,.16))}
+
+/* חיפוש חכם: תגיות, מסננים וטווח */
+.search{display:grid;grid-template-columns:1fr 1.05fr;gap:28px 48px;align-items:center;margin-top:22px;padding:40px 44px;border:1px solid var(--line);border-radius:var(--radius);background:#eeedf4;overflow:hidden}
+.search h2{font-size:clamp(30px,3vw,40px);margin-top:12px}
+.search>div>p{margin-top:16px;color:var(--muted);font-size:16px;max-width:500px}
+.finds{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-direction:column;gap:14px}
+.finds li{display:flex;gap:12px;align-items:baseline;font-size:14px;color:var(--muted);line-height:1.55}
+.finds b{flex:none;min-width:118px;font-size:13px;font-weight:650;color:var(--ink);background:var(--paper);border:1px solid #d9d6e4;border-radius:999px;padding:2px 11px;text-align:center}
+.finds .pro-badge{margin-left:6px;vertical-align:1px}
+.search-shot{position:relative;padding-bottom:40px}
+.search-shot .sp{width:64%;margin-left:auto;filter:drop-shadow(0 18px 22px rgba(40,35,60,.16))}
+.search-shot{container-type:inline-size}
+.mm-arrow{position:absolute;left:0;top:-12cqw;width:100cqw;height:87cqw;overflow:visible;pointer-events:none;z-index:3}
+/* תפריט הסינון, כמו באפליקציה (FilterMenuBuilder): נפתח מתחת לכפתור הסינון שבשדה החיפוש */
+.mmenu{position:absolute;left:0;top:13cqw;font:500 2.35cqw/1.25 var(--font);color:#1d1d1f;z-index:2}
+.mm-main,.mm-sub{background:rgba(246,246,248,.94);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(0,0,0,.12);border-radius:1.6cqw;box-shadow:0 2cqw 5cqw rgba(0,0,0,.22),0 .3cqw 1cqw rgba(0,0,0,.12);padding:.8cqw;display:flex;flex-direction:column;min-width:30cqw}
+.mm-main span,.mm-sub span{display:flex;align-items:center;gap:1.4cqw;padding:.55cqw 1.8cqw .55cqw 3.6cqw;border-radius:.9cqw;position:relative;white-space:nowrap}
+.mm-main .sub:after{content:"›";position:absolute;right:1.6cqw;color:#8a8a8e;font-size:3cqw;line-height:1}
+.mm-main .on{background:#2f80ed;color:#fff}.mm-main .on:after{color:#fff}
+.mm-main hr{border:0;border-top:1px solid rgba(0,0,0,.1);margin:.6cqw 1.6cqw}
+.mm-sub{position:absolute;right:calc(100% - .6cqw);top:31cqw;min-width:24cqw}
+.mm-sub .head{color:#8a8a8e;font-size:2.1cqw}
+.mm-sub i{width:1.7cqw;height:1.7cqw;border-radius:50%;flex:none}
+.mm-sub em{font-style:normal;color:#8a8a8e;margin-left:auto;padding-left:3cqw}
+.mm-sub .chk:before{content:"✓";position:absolute;left:1.3cqw;font-weight:700}
+/* מה Palettes עושה: תיבות עם תמונות גדולות וכפתור הגדלה */
+.workflows{padding-top:110px}
+.section-heading{max-width:680px;margin-bottom:40px}
+.section-heading h2{font-size:clamp(34px,3.6vw,49px);margin-top:15px}
+.section-heading>p:last-child{font-size:17px;line-height:1.65;color:var(--muted);max-width:580px;margin-top:20px}
+.workflow{border-radius:var(--radius);border:1px solid var(--line);overflow:hidden}
+.featured{display:grid;grid-template-columns:.72fr 1.5fr;background:#f0eee3;align-items:center}
+.wcopy{padding:38px}
+.label{display:flex;gap:14px;align-items:center;justify-content:space-between;margin-bottom:22px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.pro-badge{border:1px solid #b6b09d;border-radius:5px;padding:2px 6px;font-size:10px;color:var(--ink);line-height:1.3;letter-spacing:.05em}
+.workflow h3{font-size:30px;line-height:1.14}
+.wcopy>p{color:var(--muted);font-size:15px;line-height:1.7;margin-top:16px;max-width:420px}
+.steps{list-style:none;padding:0;margin:24px 0 0;display:flex;flex-direction:column;gap:10px;font-size:13px;font-weight:550}
+.steps li{display:flex;align-items:center;gap:8px}
+.steps li>span{display:grid;place-items:center;width:22px;height:22px;background:var(--paper);border:1px solid #d4d1c1;border-radius:50%;margin-right:3px;font-size:11px;flex:none}
+kbd{display:inline-grid;place-items:center;min-width:23px;height:24px;background:var(--paper);border:1px solid #c9c6b7;border-bottom-width:2px;border-radius:5px;padding:0 5px;font:12px var(--font)}
+.shot{position:relative;padding:20px}
+.shot img{width:100%;border-radius:12px}
+.zoom{position:absolute;right:30px;bottom:30px;display:grid;place-items:center;width:40px;height:40px;border:0;border-radius:50%;background:rgba(37,36,31,.78);color:#fff;cursor:zoom-in;box-shadow:0 4px 12px rgba(0,0,0,.18);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .16s ease,background .16s ease}
+.zoom:hover{background:#111;transform:scale(1.06)}
+.zoom svg{width:19px;height:19px}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:22px}
+.compact{display:flex;flex-direction:column}
+.compact .wcopy{padding:32px 32px 6px}
+.compact .shot{margin-top:auto}
+.lilac-bg{background:#ebe8f2}.mint-bg{background:#e8eee6}.peach-bg{background:#f4ebe1}.sun-bg{background:#f3efdb}
+
+/* פרטיות: שובר את הרצף */
+.privacy{display:grid;grid-template-columns:.65fr 1.35fr;align-items:center;gap:50px;padding-top:110px;padding-bottom:100px}
+.privacy-art{width:210px;height:210px;display:grid;place-items:center;margin:auto;background:var(--mint);border-radius:50%;position:relative;isolation:isolate}
+.privacy-art:before{content:"";position:absolute;width:155px;height:155px;background:var(--lilac);border-radius:50%;z-index:-1;left:-30px;top:-16px;opacity:.65}
+.privacy-art:after{content:"";position:absolute;width:90px;height:90px;background:var(--peach);border-radius:50%;z-index:-1;right:-16px;bottom:-10px;opacity:.9}
+.privacy-art svg{width:75px;height:85px;color:#425346}
+.privacy h2{font-size:clamp(32px,3vw,42px);margin-top:16px}
+.privacy p:not(.eyebrow){color:var(--muted);font-size:16px;max-width:580px;margin-top:22px;line-height:1.7}
+.facts{list-style:none;margin:22px 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 22px;font-size:13px;font-weight:600;color:#3d5948}
+.facts li:before{content:"✓";margin-right:6px}
+
+/* מחירים: הכלול מול Pro, ואיך מקבלים Pro */
+.pricing .section-heading{margin-bottom:32px}
+.plans{display:grid;grid-template-columns:.85fr 1.35fr;border-radius:var(--radius);border:1px solid var(--line);overflow:hidden}
+.base,.pro{padding:38px 40px}
+.base{background:#f1f0e6}
+.pro{background:#24251f;color:var(--paper)}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:650;color:var(--muted);margin-bottom:14px}
+.pro .kicker{color:#c7c8b9}
+.plans h3{font-size:30px;letter-spacing:-.035em;display:flex;align-items:baseline;gap:12px}
+.plans h3 em{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid #b6b09d;border-radius:5px;padding:2px 7px;color:var(--muted)}
+.plans h3+p{font-size:14px;color:var(--muted);margin-top:10px}
+.pro h3+p{color:#c7c8b9}
+.checks{list-style:none;padding:0;margin:24px 0 0;font-size:14px;line-height:1.55;display:flex;flex-direction:column;gap:11px}
+.checks li{position:relative;padding-left:24px}
+.checks li:before{content:"✓";position:absolute;left:0;color:#406247;font-weight:700}
+.pro .checks li:before{color:var(--yellow)}
+.pro-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.plans{grid-template-columns:1fr 1fr}
+.base{display:flex;flex-direction:column;align-items:flex-start}
+.plans-cta{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:28px}
+.iap{list-style:none;padding:0;margin:28px 0 0;border-top:1px solid #4a4b42}
+.iap li{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid #4a4b42;font-size:15px;color:#deded1}
+.iap b{font-size:17px;font-weight:650;color:var(--paper)}
+.iap-note{margin-top:16px;font-size:14px;color:#deded1}
+.fine{margin-top:20px;max-width:880px}
+.fine p{font-size:12px;line-height:1.7;color:var(--muted)}
+.fine .keep{margin-top:10px;font-size:14px;font-weight:650;color:var(--ink)}
+
+/* שאלות */
+.faq{display:grid;grid-template-columns:.8fr 1.5fr;gap:60px;padding-top:110px;padding-bottom:104px}
+.faq h2{font-size:42px;margin-top:15px}
+.faq-intro>p:last-child{margin-top:22px;font-size:14px;line-height:1.8;color:var(--muted)}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+summary{position:relative;list-style:none;font-size:15px;font-weight:600;padding:20px 36px 20px 0;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";position:absolute;right:2px;top:15px;font-size:25px;font-weight:350;color:var(--muted)}
+details[open] summary:after{content:"−"}
+.answer{padding:0 32px 22px 0;font-size:14px;line-height:1.8;color:var(--muted)}
+.answer p+p{margin-top:10px}.answer strong{color:var(--ink);font-weight:650}
+
+/* סיום ופוטר */
+.final{background:#eeece1;border-block:1px solid #e0ddce;text-align:center;padding:64px 0 58px;position:relative;isolation:isolate;overflow:hidden}
+.final:before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse at 25% 40%,rgba(242,208,161,.47),transparent 60%),radial-gradient(ellipse at 85% 80%,rgba(204,189,231,.45),transparent 55%)}
+.final img{margin:0 auto 20px}
+.final h2{font-size:clamp(32px,3.5vw,48px);margin:14px auto 28px;max-width:760px}
+.final .note{margin-top:14px}
+.site-footer{display:flex;align-items:center;gap:28px;padding-top:30px;padding-bottom:34px}
+.site-footer .brand{font-size:18px;gap:9px}
+.site-footer nav{display:flex;flex-wrap:wrap;gap:22px;margin-left:auto;font-size:13px;color:var(--muted)}
+.site-footer nav a{text-decoration:none;padding-block:10px}
+.site-footer nav a:hover{text-decoration:underline}
+.site-footer>p{font-size:12px;color:var(--muted)}
+
+/* הגדלת תמונה */
+dialog.lightbox{max-width:min(1400px,94vw);max-height:92vh;padding:0;border:0;border-radius:16px;background:var(--paper);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog.lightbox::backdrop{background:rgba(25,24,20,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+dialog.lightbox img{max-height:calc(92vh - 24px);width:auto;margin:12px}
+dialog.lightbox button{position:absolute;right:12px;top:12px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(37,36,31,.78);color:#fff;font-size:20px;cursor:pointer}
+
+@media (max-width:1050px){
+.wrap{width:calc(100% - 56px)}
+.main-nav{gap:20px}
+.hero{grid-template-columns:1fr;gap:28px;padding-top:44px}
+.anim{max-width:720px;width:100%;margin-inline:auto}
+.everyday{grid-template-columns:1fr;padding:32px}
+.search{grid-template-columns:1fr;padding:32px}
+.basics-shot{min-height:0;height:420px;overflow:hidden}
+.featured{grid-template-columns:1fr}
+.plans{grid-template-columns:1fr}
+.faq{grid-template-columns:1fr;gap:28px}
+}
+@media (max-width:760px){
+html{scroll-padding-top:80px}
+.wrap{width:calc(100% - 32px)}
+.header-inner{min-height:64px;gap:12px}
+.brand{font-size:20px}.brand img{width:30px;height:30px}.brand small{font-size:10px}
+.main-nav{display:none}
+.header-inner .button{margin-left:auto;min-height:40px;padding:9px 15px;font-size:13px}
+h1{font-size:clamp(42px,11vw,60px)}
+.lede{font-size:18px}
+.basics{grid-template-columns:1fr}
+.workflows{padding-top:70px}
+.wcopy,.compact .wcopy{padding:24px 22px 4px}
+.workflow h3{font-size:26px}
+.shot{padding:12px}.zoom{right:20px;bottom:20px}
+.pair{grid-template-columns:1fr;gap:18px;margin-top:18px}
+.privacy{grid-template-columns:1fr;gap:34px;padding-top:70px;padding-bottom:64px}
+.privacy-art{width:140px;height:140px;margin-left:24px}.privacy-art:before{width:104px;height:104px}.privacy-art:after{width:62px;height:62px}.privacy-art svg{width:52px;height:60px}
+.base,.pro{padding:26px 22px}
+.pro-grid{grid-template-columns:1fr}
+.faq{padding-top:70px;padding-bottom:64px}.faq h2{font-size:33px}
+.site-footer{flex-wrap:wrap;gap:16px}.site-footer nav{order:3;width:100%;margin:0;gap:20px}.site-footer>p{margin-left:auto}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button,.zoom{transition:none}.button:hover{transform:none}.cur{animation:none;left:43.5cqw;top:34.6cqw}.panel .copied{animation:none;opacity:1}.ripple1,.ripple2,.keys{display:none}.hl{animation:none;opacity:1}.txt,.caret{animation:none;opacity:1}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="wrap header-inner">
+<a class="brand" href="index.html"><img src="assets/logo.svg" width="40" height="40" alt=""><span>Palettes<small>Your efficient clipboard</small></span></a>
+<nav class="main-nav" aria-label="Main">
+<a href="#features">Features</a>
+<a href="#privacy">Privacy</a>
+<a href="#pricing">Pricing</a>
+<a href="support.html">Support</a>
+</nav>
+<a class="button" href="https://apps.apple.com/app/id6824556120">Download <span>↗</span></a>
+</div>
+</header>
+
+<main>
+<section class="wrap hero">
+<div>
+<span class="eyebrow"><i class="dot"></i>A clipboard manager for Mac</span>
+<h1>Copy more.<br><span class="mark">Paste smarter.</span></h1>
+<p class="lede">Palettes is a powerful clipboard manager designed to streamline your workflow and maximize productivity.</p>
+<div class="actions">
+<a class="button" href="https://apps.apple.com/app/id6824556120">Download on the Mac App Store <span>↗</span></a>
+<a class="text-link" href="#features">See how it works <span aria-hidden="true">↓</span></a>
+</div>
+<p class="note">Free download<i>·</i>Pro optional<i>·</i>macOS 14 or later</p>
+<a class="hero-privacy" href="#privacy"><svg viewBox="0 0 20 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M10 1.5l7.5 3v6c0 5-3.4 8.6-7.5 10-4.1-1.4-7.5-5-7.5-10v-6z"/><path d="M6.5 11l2.5 2.5 4.5-5" stroke-linecap="round"/></svg>Your clipboard stays on your Mac.</a>
+</div>
+
+<div class="anim" role="img" aria-label="Palettes copies one line of an address, London NW1 6XE, and pastes it into an email">
+<div class="stage">
+<div class="halo"></div>
+<div class="lt">
+<div class="lid"><div class="bezel"><div class="scr">
+<div class="menubar"><b>Mail</b><span>File</span><span>Edit</span><span>View</span></div>
+<div class="win"><div class="tb"><i></i><i></i><i></i></div><div class="mbody">
+<div class="to">To: jane@example.com</div>
+<span class="greet">Hi Jane,</span>
+<span class="greet2">Looking forward to Saturday.</span>
+<span>Here's the area:</span>
+<span class="paste"><span class="txt">London NW1 6XE</span><i class="caret"></i></span>
+</div></div>
+<div class="glare"></div>
+</div><span class="cam"></span></div></div>
+<div class="deck"></div>
+</div>
+<div class="panel">
+<img src="assets/panel-curves.png" alt="">
+<img class="copied" src="assets/panel-curves-copied.png" alt="">
+<span class="hl"></span>
+<span class="ripple1"></span>
+</div>
+<svg class="cur" viewBox="0 0 24 24"><path d="M5 2.5v17.2l4.3-4.1 2.7 6.3 2.6-1.1-2.7-6.2h6z" fill="#111" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+<span class="ripple2"></span>
+<span class="keys">⌘V</span>
+</div>
+</div>
+</section>
+
+<section class="wrap everyday" aria-labelledby="everyday-h">
+<div>
+<span class="eyebrow">The everyday</span>
+<h2 id="everyday-h">Everything you copy, organized your way.</h2>
+<p>History and search for what you just copied. Bookmark tabs for what you keep coming back to.</p>
+<ul class="basics">
+<li><span class="ic peach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h10v17l-5-4-5 4z"/></svg></span><span><strong>Bookmark tabs</strong><span>Colorful tabs for work, code or personal.</span></span></li>
+<li><span class="ic lilac"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><span><strong>Sections</strong><span>Group items inside a tab: colors, fonts, links.</span></span></li>
+<li><span class="ic mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14M12 6v13"/></svg></span><span><strong>Titles</strong><span>Name any item so it's easy to spot.</span></span></li>
+<li><span class="ic sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg></span><span><strong>Checklists</strong><span>Add tasks to a tab and check them off.</span></span></li>
+<li><span class="ic lilac"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span><span><strong>History and search</strong><span>Everything you copied, a few letters away.</span></span></li>
+<li><span class="ic peach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3.5h6l-1 6 3.5 3.5h-11L10 9.5z"/><path d="M12 13v7.5"/></svg></span><span><strong>Pins</strong><span>Keep what you reuse at the top.</span></span></li>
+</ul>
+</div>
+<div class="basics-shot"><img src="assets/basics.png" alt="A Brand refresh bookmark tab with a Deliverables checklist, and sections for colors, fonts and references, each item with a title"></div>
+</section>
+
+<section class="wrap search" aria-labelledby="search-h">
+<div>
+<span class="eyebrow">Smart search</span>
+<h2 id="search-h">Find anything you copied, in seconds.</h2>
+<p>Type a word and Palettes looks everywhere: every item, tag, section and bookmark. Then narrow it down with filters until only what you need is left.</p>
+<ul class="finds">
+<li><b>#Tags</b><span>Tag items, then filter by a tag with one click.</span></li>
+<li><b>Filters</b><span>Images, files, links, code, colors, the app you copied from, or pinned. Combine as many as you like.</span></li>
+<li><b>Everywhere</b><span>Search this page or all of Palettes at once.</span></li>
+<li><b>Saved filters</b><span>Save a search you use often and get back to it anytime.</span></li>
+<li><b>Text in images</b><span>Find words inside screenshots.<span class="pro-badge">Pro</span></span></li>
+</ul>
+</div>
+<div class="search-shot">
+<img class="sp" src="assets/search-panel.png" alt="Searching lisbon with the #trip tag filter: only the trip items are left, a PDF, a flight, a hotel link and an address, with lisbon highlighted">
+<svg class="mm-arrow" viewBox="0 -12 100 87" aria-hidden="true"><defs><marker id="mmhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2f80ed"/></marker></defs><path d="M31.5 12.5C38 -9 84 -10 89.6 12.2" fill="none" stroke="#2f80ed" stroke-width=".55" stroke-linecap="round" stroke-dasharray="1.4 1.2" marker-end="url(#mmhead)"/><circle cx="90.3" cy="16.8" r="2.7" fill="none" stroke="#2f80ed" stroke-width=".55"/></svg>
+<div class="mmenu" role="img" aria-label="The filter menu, opened from the filter button in the search field: Images, Files, Code, Links, Text, More Types, Tags, From App, Pinned, Edited, Sensitive, New Filter and Save Filter">
+<div class="mm-main">
+<span>Images</span><span>Files</span><span>Code</span><span>Links</span><span>Text</span><span class="sub">More Types</span>
+<hr><span class="sub">Tags</span><span class="sub">From App</span>
+<hr><span>Pinned</span><span>Edited</span><span>Sensitive</span>
+<hr><span>New Filter…</span><span>Save Filter…</span>
+<hr><span>Clear Filters</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="wrap workflows" id="features" aria-labelledby="features-h">
+<div class="section-heading">
+<span class="eyebrow">Between copy and paste</span>
+<h2 id="features-h">Small moments. Smarter ways through them.</h2>
+<p>From filling a form to keeping steps in view, Palettes takes care of the back and forth.</p>
+</div>
+
+<article class="workflow featured">
+<div class="wcopy">
+<div class="label"><span>Paste Queue</span><span class="pro-badge">Pro</span></div>
+<h3>Filling a form field by field? Copy once, paste in order.</h3>
+<p>Turn on Paste Queue, copy what you need, and every ⌘V pastes the next one.</p>
+<ol class="steps">
+<li><span>1</span>Copy your details</li>
+<li><span>2</span>Go to your form</li>
+<li><span>3</span><kbd>⌘</kbd><kbd>V</kbd> pastes the next one</li>
+</ol>
+</div>
+<figure class="shot"><img src="assets/paste-queue.png" alt="A sign-up form next to the Paste Queue window: jane@example.com is Now, the address is Next"><a class="zoom" href="assets/paste-queue.png" aria-label="Enlarge the Paste Queue picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></a></figure>
+</article>
+
+<div class="pair">
+<article class="workflow compact mint-bg">
+<div class="wcopy">
+<div class="label"><span>Float</span><span class="pro-badge">Pro</span></div>
+<h3>Instructions in another window? Keep just the steps on top.</h3>
+<p>Float the part you need, copy a value, and check off each step.</p>
+</div>
+<figure class="shot"><img src="assets/float.png" alt="A Float window with domain setup steps stays on top of a DNS settings page"><a class="zoom" href="assets/float.png" aria-label="Enlarge the Float picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></a></figure>
+</article>
+<article class="workflow compact lilac-bg">
+<div class="wcopy">
+<div class="label"><span>Text from images</span><span class="pro-badge">Pro</span></div>
+<h3>A table in a screenshot? Make it a real table.</h3>
+<p>Select it, choose Table, and paste it into any spreadsheet, every value in its own cell.</p>
+</div>
+<figure class="shot"><img src="assets/table.png" alt="A camera comparison table selected in a screenshot and pasted into a spreadsheet, every value in its own cell"><a class="zoom" href="assets/table.png" aria-label="Enlarge the table picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></a></figure>
+</article>
+</div>
+
+<div class="pair">
+<article class="workflow compact peach-bg">
+<div class="wcopy">
+<div class="label"><span>Copy several</span><span class="pro-badge">Pro</span></div>
+<h3>Need three things at once? Pick them, paste them in order.</h3>
+<p>⌘-click items, or single lines, then paste them together or one by one.</p>
+</div>
+<figure class="shot"><img src="assets/copy-several.png" alt="Four commands picked in Palettes in the order they will run, next to Terminal"><a class="zoom" href="assets/copy-several.png" aria-label="Enlarge the Copy several picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></a></figure>
+</article>
+<article class="workflow compact sun-bg">
+<div class="wcopy">
+<div class="label"><span>Smart buttons</span></div>
+<h3>Copied an address? It's one click from Maps.</h3>
+<p>Links open, numbers call, addresses open in Maps. With Pro, sizes and weights convert too.</p>
+</div>
+<figure class="shot"><img src="assets/smart-buttons.png" alt="Palettes rows with their smart buttons: open a link, call a number, map an address, convert a size"><a class="zoom" href="assets/smart-buttons.png" aria-label="Enlarge the smart buttons picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></a></figure>
+</article>
+</div>
+</section>
+
+<section class="wrap privacy" id="privacy" aria-labelledby="privacy-h">
+<div class="privacy-art"><svg viewBox="0 0 20 22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M10 1.5l7.5 3v6c0 5-3.4 8.6-7.5 10-4.1-1.4-7.5-5-7.5-10v-6z"/><path d="M6.5 11l2.5 2.5 4.5-5" stroke-linecap="round"/></svg></div>
+<div>
+<span class="eyebrow">Your copies. Your Mac.</span>
+<h2 id="privacy-h">A clipboard is personal. It should stay that way.</h2>
+<p>Your history is stored on your Mac, encrypted, and never on our servers. There's no account to create, and Palettes collects no data. Choose apps to ignore, decide what happens to passwords, and lock a bookmark with Touch ID.</p>
+<ul class="facts"><li>Encrypted on your Mac</li><li>No account</li><li>Works offline</li><li>Touch ID lock</li></ul>
+<a class="text-link" href="privacy.html">Read the privacy policy <span aria-hidden="true">→</span></a>
+</div>
+</section>
+
+<section class="wrap pricing" id="pricing" aria-labelledby="pricing-h">
+<div class="section-heading">
+<span class="eyebrow">Pricing</span>
+<h2 id="pricing-h">Free to download. Pro when you want more.</h2>
+</div>
+<div class="plans">
+<div class="base">
+<p class="kicker">Free</p>
+<h3>Palettes</h3>
+<p>Everything you need for every day.</p>
+<ul class="checks">
+<li>Clipboard history and instant search</li>
+<li>Bookmark tabs, sections, titles and checklists</li>
+<li>Pins, tags and filters</li>
+<li>Copy a single line from any item</li>
+<li>Smart buttons for links, maps and calls</li>
+<li>Privacy controls, backup and export</li>
+</ul>
+</div>
+<div class="pro">
+<p class="kicker">In-app purchase</p>
+<h3>Palettes Pro</h3>
+<p>Everything in Palettes, plus:</p>
+<ul class="checks pro-grid">
+<li>Paste Queue</li>
+<li>Float windows</li>
+<li>Text and tables from images</li>
+<li>Multi-select and One by One</li>
+<li>Copy As and unit conversion</li>
+<li>Automations</li>
+<li>Image editor</li>
+<li>Every banner, or your own photo</li>
+</ul>
+<ul class="iap">
+<li><span>Monthly</span><b>$2.99</b></li>
+<li><span>Yearly</span><b>$19.99</b></li>
+<li><span>Lifetime</span><b>$39.99</b></li>
+</ul>
+<p class="iap-note">Try Pro free for 14 days with Monthly or Yearly. Choose a plan inside the app, anytime.</p>
+</div>
+</div>
+<div class="plans-cta"><a class="button" href="https://apps.apple.com/app/id6824556120">Download on the Mac App Store <span>↗</span></a><p class="note">Free download<i>·</i>Pro optional<i>·</i>macOS 14 or later</p></div>
+<div class="fine">
+<p>Prices in USD. Your App Store shows your local price. The free trial is for eligible new subscribers. Subscriptions renew automatically unless canceled at least 24 hours before the trial or period ends. Manage subscriptions in your App Store account settings. Lifetime is a single payment with no trial. <a href="terms.html">Terms</a>.</p>
+<p class="keep">Cancel anytime. Your history and saved items always stay yours.</p>
+</div>
+</section>
+
+<section class="wrap faq" aria-labelledby="faq-h">
+<div class="faq-intro">
+<span class="eyebrow">Questions</span>
+<h2 id="faq-h">A few useful answers.</h2>
+<p>Something else on your mind?<br><a class="text-link" href="support.html">Visit support <span aria-hidden="true">→</span></a></p>
+</div>
+<div>
+<details><summary>Do I need Pro?</summary><div class="answer"><p>If you copy and paste throughout the day, Pro can make a real difference—and you’ll appreciate it more with every shortcut.</p><p><strong>You already get plenty without Pro:</strong> history, search, bookmark tabs, sections, checklists, pins, single-line copying, smart buttons, and privacy controls.</p><p><strong>Pro helps you get things done faster.</strong> Fill out forms with a few ⌘Vs using Paste Queue. Keep instructions in view with Float. Extract tables from screenshots. Paste multiple items in the order you choose. And discover thoughtful little touches that make everyday work easier.</p><p>Small shortcuts. Time saved every week. All for about the price of a few cups of coffee a year.</p></div></details>
+<details><summary>Can I try Pro first?</summary><div class="answer">Yes. The monthly and yearly plans start with 14 days of every Pro feature. You're not charged until the trial ends. To stop, cancel in your App Store account settings at least 24 hours before it ends. The lifetime purchase has no trial.</div></details>
+<details><summary>What happens if I cancel?</summary><div class="answer">You keep everything. Your history, bookmarks and saved items stay on your Mac, searchable and exportable. Pro features pause, and your Pro settings come back if you subscribe again.</div></details>
+<details><summary>Does my clipboard leave my Mac?</summary><div class="answer">No. Everything stays on your Mac, and Palettes collects no data. Purchases go through Apple. See the <a href="privacy.html">privacy policy</a> for details.</div></details>
+<details><summary>Are my passwords saved?</summary><div class="answer">By default they're saved like other items. In Settings › Privacy › Passwords you can hide them, delete them after a while, or never save them, and choose apps whose copies are never saved.</div></details>
+<details><summary>Does it sync with my other Macs or iPhone?</summary><div class="answer">Not yet. Palettes currently keeps everything on this Mac, but we’re working on bringing the app to iPad and iPhone as well. For now, you can transfer your bookmarks and pinned items to another Mac using Settings › History › Move to another Mac.</div></details>
+<details><summary>Can my family use Pro?</summary><div class="answer">Yes. Pro supports Family Sharing: you and up to 5 family members can use your subscription or lifetime purchase, each with their own Apple Account.</div></details>
+</div>
+</section>
+</main>
+
+<section class="final" aria-labelledby="final-h">
+<div class="wrap">
+<img src="assets/logo.svg" width="56" height="56" alt="">
+<span class="eyebrow">A little more flow, every day</span>
+<h2 id="final-h">Make your next copy the start of something easier.</h2>
+<a class="button" href="https://apps.apple.com/app/id6824556120">Download on the Mac App Store <span>↗</span></a>
+<p class="note">Free download<i>·</i>Pro optional<i>·</i>macOS 14 or later</p>
+</div>
+</section>
+
+<footer class="wrap site-footer">
+<a class="brand" href="index.html"><img src="assets/logo.svg" width="28" height="28" alt=""><span>Palettes</span></a>
+<nav aria-label="Footer">
+<a href="support.html">Support</a>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="mailto:paletteclipboard@gmail.com">Contact</a>
+</nav>
+<p>© 2026 Palettes Efficient Clipboard</p>
+</footer>
+
+<dialog class="lightbox" aria-label="Enlarged picture"><button type="button" aria-label="Close">×</button><img alt=""></dialog>
+<script>
+// הגדלת תמונה: בלי JavaScript הקישור פשוט פותח את התמונה עצמה
+const box = document.querySelector('dialog.lightbox');
+const big = box.querySelector('img');
+document.querySelectorAll('a.zoom').forEach(link => link.addEventListener('click', event => {
+  event.preventDefault();
+  const img = link.parentElement.querySelector('img');
+  big.src = link.href; big.alt = img.alt;
+  box.showModal();
+}));
+box.addEventListener('click', event => { if (event.target === box || event.target.tagName === 'BUTTON') box.close(); });
+</script>
+</body>
+</html>
